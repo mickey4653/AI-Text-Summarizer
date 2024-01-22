@@ -1,4 +1,4 @@
-//load secret file
+// load secret file
 require('dotenv').config();
 
 // Axios is the framework we will be using to call the API
@@ -12,7 +12,7 @@ function findSpecialCharacters(text) {
 }
 
 // This is the function where the call to the API is made. Returns the summarized text as a string.
-summarizeText = async (text) => {
+const summarizeText = async (text) => {
   try {
     let data = JSON.stringify({
       "inputs": text,
@@ -41,43 +41,31 @@ summarizeText = async (text) => {
     // Log the Axios request config before making the request
     console.log('Axios Request Config:', config);
 
-    try {
-      const response = await axios.request(config);
+    const response = await axios.request(config);
 
-      // Log the summarized text before returning it
-      const summarizedText = response.data[0].summary_text;
-      console.log('Raw Summarized Text:', summarizedText);
+    // Log the summarized text before returning it
+    const summarizedText = response.data[0].summary_text;
+    console.log('Raw Summarized Text:', summarizedText);
 
-      // Check for special characters and log them
-      const specialChars = findSpecialCharacters(summarizedText);
-      if (specialChars.length > 0) {
-        console.log('Special Characters Found:', specialChars);
+    // Check for special characters and log them
+    const specialChars = findSpecialCharacters(summarizedText);
+    if (specialChars.length > 0) {
+      console.log('Special Characters Found:', specialChars);
 
-        // Replace special characters in the summarized text
-        const sanitizedText = summarizedText.replace(/[^a-zA-Z0-9\s]/g, '');
+      // Replace special characters in the summarized text
+      const sanitizedText = summarizedText.replace(/[^a-zA-Z0-9\s]/g, '');
 
-        console.log('Sanitized Text:', sanitizedText);
+      console.log('Sanitized Text:', sanitizedText);
 
-        // Return the sanitized text directly
-        return sanitizedText;
-      }
-
-      // Return the summarized text directly
-      return summarizedText;
-    } catch (error) {
-      console.log('Error in API response:', error);
-
-      // Log the full response for debugging purposes
-      if (error.response) {
-        console.log('API Response Status:', error.response.status);
-        console.log('API Response Data:', error.response.data);
-      }
-
-      // Handle the error gracefully or throw a new error
-      throw new Error('Error in API response');
+      // Return the sanitized text directly
+      return sanitizedText;
     }
+
+    // Return the summarized text directly
+    return summarizedText;
   } catch (error) {
-    console.log('Error in summarizing text:', error);
+    console.error('Error in summarizing text:', error);
+
     // Rethrow the error to be caught by the server
     throw error;
   }

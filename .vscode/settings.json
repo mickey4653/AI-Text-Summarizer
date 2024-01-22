@@ -1,0 +1,5 @@
+{
+    "editor.fontFamily": "'CaskaydiaCove NF',Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "keyboard.dispatch": "keyCode"
+}

@@ -51,15 +51,16 @@ var requestOptions = {
 // Send the text to the server using fetch API
 
   // Note - here we can omit the “baseUrl” we needed in Postman and just use a relative path to “/summarize” because we will be calling the API from our Replit!  
-fetch("/summarize", requestOptions)
-  .then(response => response.text()) // Response will be summarized plain text
-  .then(summary => {
-    // Do something with the summary response from the back end API!
+  fetch("/summarize", requestOptions)
+  .then(response => response.json()) // Parse response as JSON
+  .then(data => {
+    // Access the summary property from the JSON response
+    const summary = data.summary;
 
-      // Update the output text area with new summary
+    // Update the output text area with the new summary
     summarizedTextArea.value = summary;
 
-     // Stop the spinning loading animation
+    // Stop the spinning loading animation
     submitButton.classList.remove("submit-button--loading");
   })
   .catch(error => {

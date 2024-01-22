@@ -17,6 +17,11 @@ summarizeText = async (text) => {
     }
   });
 
+
+  // log the request data before making the request
+  console.log('Request Data:', data);
+
+
 // A config object that will contain the instructions for the API call
   let config = {
     method: 'post',
@@ -36,7 +41,9 @@ summarizeText = async (text) => {
     //   return response.data[0].summary_text;
     // }
 
-    
+       // Log the Axios request config before making the request
+       console.log('Axios Request Config:', config);
+
       const response = await axios.request(config);
 
       // Log the summarized text before returning it
@@ -59,7 +66,7 @@ if(specialChars.length > 0){
 }catch (error) {
      console.log(error);
      // Rethrow the error to be caught by the server
-      // throw error;
+      throw error;
     }
   }
 

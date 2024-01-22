@@ -13,6 +13,8 @@ app.use(express.json());
 // Log all incoming requests
 app.use((req, res, next) => {
     console.log('Received request:', req.method, req.url);
+    //Set content type to JSON
+    res.setHeader('content-Type', 'application/json');
     next();
   });
 
@@ -36,7 +38,7 @@ console.log('Received Text:', text);
   // call your summarizeText function, passing in the text from the request
   summarizeText(text)
     .then(response => {
-        console.log('Summarized Text', response);
+        console.log('Summarized Text:', response);
       res.send(response); // Send the summary text as a response to the client
     }) 
 .catch(err => {

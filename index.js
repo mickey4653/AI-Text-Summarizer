@@ -6,13 +6,17 @@ const summarizeText = require('./summarize.js');
 
 app.use(express.json());
 
+app.use(express.static('public'));
+// app.use(express.static('public', { 'extensions': ['html'] }));
+
+
 app.use((req, res, next) => {
     console.log('Received request:', req.method, req.url);
     res.setHeader('Content-Type', 'application/json');
     next();
 });
 
-app.use(express.static('public'));
+
 
 app.post('/summarize', async (req, res) => {
     console.log('Handling POST request to /summarize');
@@ -25,10 +29,10 @@ app.post('/summarize', async (req, res) => {
         const response = await summarizeText(text);
         console.log("Raw Response:", JSON.stringify(response));
 
-        res.status(200).json({ summary: response });
+      return  res.status(200).json({ summary: response });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+       return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
